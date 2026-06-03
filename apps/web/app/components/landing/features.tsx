@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const features = [
   {
@@ -189,33 +190,37 @@ export function Features() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
-          {features.map((feature, i) => (
-            <motion.div
-              key={i}
-              variants={cardVariants}
-              className="group relative glass rounded-xl p-6 hover-card gradient-border cursor-default"
-            >
-              {/* Icon */}
-              <div
-                className={`w-11 h-11 rounded-lg ${bgColorMap[feature.color]} ${colorMap[feature.color]} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-              >
-                {feature.icon}
-              </div>
+          {features.map((feature, i) => {
+            const slug = feature.title.toLowerCase().replace(/\s+/g, '-');
+            return (
+              <Link href={`/tools/${slug}`} key={i} className="block h-full">
+                <motion.div
+                  variants={cardVariants}
+                  className="group relative glass rounded-xl p-6 hover-card gradient-border cursor-pointer h-full"
+                >
+                  {/* Icon */}
+                  <div
+                    className={`w-11 h-11 rounded-lg ${bgColorMap[feature.color]} ${colorMap[feature.color]} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    {feature.icon}
+                  </div>
 
-              {/* Content */}
-              <h3 className="text-base font-semibold mb-2 group-hover:text-primary-light transition-colors">
-                {feature.title}
-              </h3>
-              <p className="text-sm text-muted leading-relaxed">
-                {feature.description}
-              </p>
+                  {/* Content */}
+                  <h3 className="text-base font-semibold mb-2 group-hover:text-primary-light transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-sm text-muted leading-relaxed">
+                    {feature.description}
+                  </p>
 
-              {/* Subtle gradient overlay on hover */}
-              <div
-                className={`absolute inset-0 rounded-xl bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10`}
-              />
-            </motion.div>
-          ))}
+                  {/* Subtle gradient overlay on hover */}
+                  <div
+                    className={`absolute inset-0 rounded-xl bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10`}
+                  />
+                </motion.div>
+              </Link>
+            );
+          })}
         </motion.div>
       </div>
     </section>
