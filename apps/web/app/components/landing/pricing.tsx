@@ -249,23 +249,10 @@ export function Pricing() {
               </svg>
               Buy me a coffee
             </a>
-            
-            <a
-              // Replace 'your-upi-id@bank' with your actual UPI ID (e.g., 8910829412@ybl)
-              href="upi://pay?pa=your-upi-id@bank&pn=CreatorOS&cu=INR"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-orange-500 via-white to-green-500 text-black font-bold hover:opacity-90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 10H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M7 15H7.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M11 15H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Pay via BHIM UPI
-            </a>
           </div>
         </motion.div>
       </div>
+
     </section>
   );
 }
