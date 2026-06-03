@@ -134,7 +134,7 @@ export function Hero() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
               <motion.a
-                href="#signup"
+                href="/signup"
                 id="hero-cta-primary"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -146,7 +146,7 @@ export function Hero() {
                 Start Creating for Free
               </motion.a>
               <motion.a
-                href="#demo"
+                href="#features"
                 id="hero-cta-secondary"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
