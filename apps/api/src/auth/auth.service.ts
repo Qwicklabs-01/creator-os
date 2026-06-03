@@ -35,8 +35,8 @@ export class AuthService {
     await this.prisma.session.create({
       data: {
         userId: user.id,
-        token: token,
-        expiresAt: expiresAt,
+        sessionToken: token,
+        expires: expiresAt,
       },
     });
 

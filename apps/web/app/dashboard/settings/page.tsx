@@ -1,5 +1,5 @@
 import { createClient } from "../../../utils/supabase/server";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../../components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../components/ui/card";
 import { User, Mail, Shield, Bell, CreditCard, Building2, Save } from "lucide-react";
 
 export default async function SettingsPage() {
