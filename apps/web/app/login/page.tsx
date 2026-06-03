@@ -135,6 +135,36 @@ export default function LoginPage() {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (err: any) {
+      setError(err.message || "An error occurred during sign in.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handlePhoneSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");

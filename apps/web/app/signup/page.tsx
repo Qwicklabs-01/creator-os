@@ -99,6 +99,7 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [socialLoading, setSocialLoading] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const passwordStrength = (() => {
     if (password.length === 0) return { level: 0, label: "", color: "" };
@@ -143,9 +144,41 @@ export default function SignupPage() {
       setSocialLoading(null);
     }
   };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: name,
+          },
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        setError("Please check your email for the confirmation link.");
+      }
+    } catch (err: any) {
+      setError(err.message || "An error occurred during sign up.");
+    } finally {
+      setLoading(false);
+    }
   };
-
   const handlePhoneSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -539,7 +572,7 @@ export default function SignupPage() {
                   {loading ? "Verifying..." : "Verify & Sign Up"}
                 </button>
               </form>
-            )}m>
+            )}
           </div>
 
           <p className="text-center text-xs text-muted-dark mt-6">
