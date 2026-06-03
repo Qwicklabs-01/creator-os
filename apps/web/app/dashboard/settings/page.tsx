@@ -53,8 +53,8 @@ export default async function SettingsPage() {
               {/* Avatar Upload (Mock) */}
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-full bg-surface border border-border-light flex items-center justify-center overflow-hidden">
-                  {session?.user?.user_metadata?.avatar_url || session?.user?.image ? (
-                    <img src={session?.user?.user_metadata?.avatar_url || session?.user?.image} alt="Profile" className="w-full h-full object-cover" />
+                  {session?.user?.user_metadata?.avatar_url ? (
+                    <img src={session?.user?.user_metadata?.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
                     <User className="w-8 h-8 text-text-secondary" />
                   )}
@@ -75,7 +75,7 @@ export default async function SettingsPage() {
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
                     <input 
                       type="text" 
-                      defaultValue={session?.user?.user_metadata?.full_name || session?.user?.name || ""} 
+                      defaultValue={session?.user?.user_metadata?.full_name || ""} 
                       className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-background border border-border focus:border-primary/50 outline-none text-sm transition-colors"
                     />
                   </div>
