@@ -191,9 +191,20 @@ export function Features() {
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
           {features.map((feature, i) => {
-            const slug = feature.title.toLowerCase().replace(/\s+/g, '-');
+            const hrefMap: Record<string, string> = {
+              "AI Content Creation": "/dashboard/content",
+              "Image Synthesis": "/dashboard/images",
+              "Video Generation": "/dashboard/videos",
+              "Smart Analytics": "/dashboard/analytics",
+              "Brand Memory": "/dashboard/brands",
+              "Campaign Management": "/dashboard/campaigns",
+              "Multi-Platform Publishing": "/dashboard/publishing",
+              "Team Collaboration": "/dashboard/team"
+            };
+            const href = hrefMap[feature.title] || "/dashboard";
+            
             return (
-              <Link href={`/tools/${slug}`} key={i} className="block h-full">
+              <Link href={href} key={i} className="block h-full">
                 <motion.div
                   variants={cardVariants}
                   className="group relative glass rounded-xl p-6 hover-card gradient-border cursor-pointer h-full"

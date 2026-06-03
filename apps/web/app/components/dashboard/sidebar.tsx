@@ -11,15 +11,25 @@ import {
   Settings,
   LogOut,
   User,
-  Menu
+  Menu,
+  PenTool,
+  Image as ImageIcon,
+  Video,
+  Share2,
+  Users
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const navigation = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
+  { name: "AI Content", href: "/dashboard/content", icon: PenTool },
+  { name: "Images", href: "/dashboard/images", icon: ImageIcon },
+  { name: "Videos", href: "/dashboard/videos", icon: Video },
   { name: "Brands", href: "/dashboard/brands", icon: Briefcase },
   { name: "Campaigns", href: "/dashboard/campaigns", icon: Megaphone },
+  { name: "Publishing", href: "/dashboard/publishing", icon: Share2 },
   { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+  { name: "Team", href: "/dashboard/team", icon: Users },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
