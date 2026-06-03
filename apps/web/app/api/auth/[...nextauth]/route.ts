@@ -5,8 +5,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import DiscordProvider from "next-auth/providers/discord";
-import AppleProvider from "next-auth/providers/apple";
-import AzureADProvider from "next-auth/providers/azure-ad";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as any, // Type cast to any because of version mismatch issues between NextAuth and Prisma adapter
@@ -102,15 +100,6 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID || "MOCK_DISCORD_ID",
       clientSecret: process.env.DISCORD_CLIENT_SECRET || "MOCK_DISCORD_SECRET",
-    }),
-    AppleProvider({
-      clientId: process.env.APPLE_ID || "MOCK_APPLE_ID",
-      clientSecret: process.env.APPLE_SECRET || "MOCK_APPLE_SECRET",
-    }),
-    AzureADProvider({
-      clientId: process.env.AZURE_AD_CLIENT_ID || "MOCK_AZURE_AD_CLIENT_ID",
-      clientSecret: process.env.AZURE_AD_CLIENT_SECRET || "MOCK_AZURE_AD_CLIENT_SECRET",
-      tenantId: process.env.AZURE_AD_TENANT_ID,
     }),
   ],
   session: {

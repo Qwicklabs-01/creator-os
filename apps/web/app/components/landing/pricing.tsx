@@ -219,6 +219,52 @@ export function Pricing() {
             </motion.div>
           ))}
         </div>
+
+        {/* Buy Me a Coffee Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-20 max-w-2xl mx-auto text-center glass-strong rounded-3xl p-8 border border-border/50 shadow-xl"
+        >
+          <div className="w-16 h-16 mx-auto mb-6 bg-[#FFDD00]/10 rounded-full flex items-center justify-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 8H6V17C6 19.2091 7.79086 21 10 21H14C16.2091 21 18 19.2091 18 17V14M20 8V14H18M20 8C21.1046 8 22 8.89543 22 10C22 11.1046 21.1046 12 20 12M18 14V8H20M6 8V5C6 3.89543 6.89543 3 8 3H16C17.1046 3 18 3.89543 18 5V8M6 8H4M14 12V17M10 12V17" stroke="#FFDD00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h3 className="text-2xl font-bold mb-3">Support CreatorOS</h3>
+          <p className="text-muted mb-8">
+            Love what we're building? You can support the development by buying us a coffee. Every bit helps us keep the servers running and build new features!
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="https://buymeacoffee.com/CreatorSakshi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#FFDD00] text-black font-bold hover:bg-[#FFDD00]/90 transition-all shadow-lg shadow-[#FFDD00]/20 hover:shadow-[#FFDD00]/40 transform hover:-translate-y-1"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 8H6V17C6 19.2091 7.79086 21 10 21H14C16.2091 21 18 19.2091 18 17V14M20 8V14H18M20 8C21.1046 8 22 8.89543 22 10C22 11.1046 21.1046 12 20 12M18 14V8H20M6 8V5C6 3.89543 6.89543 3 8 3H16C17.1046 3 18 3.89543 18 5V8M6 8H4M14 12V17M10 12V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Buy me a coffee
+            </a>
+            
+            <a
+              // Replace 'your-upi-id@bank' with your actual UPI ID (e.g., 8910829412@ybl)
+              href="upi://pay?pa=your-upi-id@bank&pn=CreatorOS&cu=INR"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-orange-500 via-white to-green-500 text-black font-bold hover:opacity-90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 10H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M7 15H7.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M11 15H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Pay via BHIM UPI
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

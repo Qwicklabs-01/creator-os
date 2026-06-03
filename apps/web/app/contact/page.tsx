@@ -39,8 +39,8 @@ export default function ContactPage() {
               icon: Phone,
               title: "Enterprise Sales",
               description: "Alerts via ntfy",
-              contact: "+1 (800) 123-4567",
-              href: "tel:+18001234567",
+              contact: "8910829412",
+              href: "tel:8910829412",
             },
             {
               icon: MapPin,
