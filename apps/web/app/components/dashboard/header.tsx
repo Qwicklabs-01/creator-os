@@ -6,10 +6,12 @@ import { Plus, Bell } from "lucide-react";
 export function Header() {
   const pathname = usePathname();
   
-  // Format pathname to a readable title
+  const lastSegment = pathname.split("/").pop() || "";
   const title = pathname === "/dashboard" 
     ? "Overview" 
-    : pathname.split("/").pop()?.charAt(0).toUpperCase() + pathname.split("/").pop()?.slice(1) || "Dashboard";
+    : lastSegment 
+      ? lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1) 
+      : "Dashboard";
 
   return (
     <header className="h-16 lg:h-20 flex items-center justify-between px-4 sm:px-8 border-b border-border/50 bg-background/50 backdrop-blur-md sticky top-0 z-30 pt-16 lg:pt-0">
