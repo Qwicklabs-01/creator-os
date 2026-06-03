@@ -2,6 +2,7 @@
   "name": "creator-os",
   "private": true,
   "scripts": {
+    "postinstall": "npx prisma generate --schema=packages/database/prisma/schema.prisma",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
