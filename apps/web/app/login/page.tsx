@@ -358,11 +358,24 @@ export default function LoginPage() {
               ))}
             </div>
 
-            <div className="mb-6 flex justify-center w-full">
-              <TelegramLoginWidget 
-                botName={process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME || "CreatorOSAuthBot"} 
-                onAuth={handleTelegramAuth} 
-              />
+            <div className="mb-6 relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-2xl blur transition-all group-hover:blur-md" />
+              <div className="relative p-[1px] rounded-2xl bg-gradient-to-r from-blue-500/50 to-purple-500/50">
+                <div className="bg-surface/90 backdrop-blur-sm rounded-2xl p-5 flex flex-col items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-2 w-2 relative">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <span className="text-sm font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Recommended</span>
+                  </div>
+                  <span className="text-xs text-muted-dark text-center mb-1">Fast & secure instant login</span>
+                  <TelegramLoginWidget 
+                    botName={process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME || "CreatorOSAuthBot"} 
+                    onAuth={handleTelegramAuth} 
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Divider */}

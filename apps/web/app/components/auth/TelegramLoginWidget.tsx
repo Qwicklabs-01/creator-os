@@ -45,7 +45,7 @@ export function TelegramLoginWidget({ botName, onAuth }: TelegramLoginWidgetProp
   return (
     <div 
       ref={ref} 
-      className="flex justify-center items-center w-full my-1"
+      className="flex justify-center items-center w-full"
       style={{ minHeight: '48px' }}
     ></div>
   );
