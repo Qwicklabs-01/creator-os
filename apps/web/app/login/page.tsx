@@ -49,16 +49,6 @@ const socialProviders = [
       </svg>
     ),
   },
-  {
-    name: "Mobile Number",
-    id: "phone",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-        <line x1="12" y1="18" x2="12.01" y2="18" />
-      </svg>
-    ),
-  },
 ];
 
 export default function LoginPage() {
@@ -339,7 +329,7 @@ export default function LoginPage() {
             </p>
 
             {/* Social login buttons — responsive grid */}
-            <div className="grid grid-cols-4 gap-2 mb-6">
+            <div className="grid grid-cols-4 gap-2 mb-4">
               {socialProviders.map((provider) => (
                 <button
                   key={provider.id}
@@ -366,13 +356,6 @@ export default function LoginPage() {
                   )}
                 </button>
               ))}
-            </div>
-
-            {/* Divider */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="flex-1 h-px bg-border" />
-              <span className="text-xs text-muted-dark">or continue with Telegram</span>
-              <div className="flex-1 h-px bg-border" />
             </div>
 
             <div className="mb-6 flex justify-center w-full">
