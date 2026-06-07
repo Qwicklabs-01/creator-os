@@ -95,7 +95,7 @@ export default function SignupPage() {
       const { error } = await supabase.auth.signInWithOAuth({ 
         provider: providerId,
         options: {
-          redirectTo: `${window.location.origin}/dashboard`
+          redirectTo: `${window.location.origin}/auth/callback`
         }
       });
       if (error) throw error;
