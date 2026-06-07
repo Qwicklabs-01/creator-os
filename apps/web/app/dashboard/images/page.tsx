@@ -20,7 +20,13 @@ export default function ImagesPage() {
     setGeneratedImage(null);
 
     try {
-      const response = await fetch("/api/ai/image", {
+      // If the user is running on localhost, bypass their local ISP block by calling the live Vercel API directly
+      const isLocalhost = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+      const endpoint = isLocalhost 
+        ? "https://creator-os-web-psi.vercel.app/api/ai/image" 
+        : "/api/ai/image";
+
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt, aspectRatio }),
