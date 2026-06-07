@@ -1,32 +1,42 @@
 import { NextResponse } from 'next/server';
 
+export const maxDuration = 60;
+
 export async function POST(req: Request) {
   try {
-    const { prompt, aspectRatio = '1:1' } = await req.json();
+    const { prompt } = await req.json();
 
     if (!prompt) {
       return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
     }
 
-    // Determine dimensions based on aspect ratio
-    let width = 1024;
-    let height = 1024;
-
-    if (aspectRatio === '16:9') {
-      width = 1024;
-      height = 576;
-    } else if (aspectRatio === '9:16') {
-      width = 576;
-      height = 1024;
+    if (!process.env.HUGGINGFACE_API_KEY) {
+      return NextResponse.json({ error: 'Hugging Face API key is not configured.' }, { status: 500 });
     }
 
-    // Pollinations AI endpoint (100% Free, No API Key Required)
-    const encodedPrompt = encodeURIComponent(prompt);
-    // Adding a random seed ensures we get a different image every time
-    const seed = Math.floor(Math.random() * 1000000);
-    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}`;
+    // We use Stable Diffusion XL from Hugging Face (100% Free Tier!)
+    const response = await fetch(
+      "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ inputs: prompt }),
+      }
+    );
 
-    // Return the URL directly to the frontend
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Hugging Face API Error: ${errorText}`);
+    }
+
+    // Hugging Face returns the raw image blob
+    const buffer = await response.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString('base64');
+    const imageUrl = `data:image/jpeg;base64,${base64}`;
+
     return NextResponse.json({ url: imageUrl });
   } catch (error: any) {
     console.error('Image AI Error:', error);
