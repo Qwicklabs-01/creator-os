@@ -117,9 +117,9 @@ export function Reviews() {
         <AnimatePresence>
           {showForm && (
             <motion.div 
-              initial={{ opacity: 0, height: 0, mb: 0 }}
-              animate={{ opacity: 1, height: "auto", mb: 48 }}
-              exit={{ opacity: 0, height: 0, mb: 0 }}
+              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+              animate={{ opacity: 1, height: "auto", marginBottom: 48 }}
+              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
               className="max-w-2xl mx-auto overflow-hidden"
             >
               <div className="glass p-8 rounded-2xl border-primary/30 shadow-xl shadow-primary/10 relative">
