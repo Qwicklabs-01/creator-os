@@ -1,36 +1,32 @@
 import { NextResponse } from 'next/server';
-import Replicate from 'replicate';
-
-export const maxDuration = 60; // Images can take a bit longer
 
 export async function POST(req: Request) {
   try {
     const { prompt, aspectRatio = '1:1' } = await req.json();
 
-    if (!process.env.REPLICATE_API_TOKEN) {
-      return NextResponse.json({ error: 'Replicate API token is not configured.' }, { status: 500 });
+    if (!prompt) {
+      return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
     }
 
-    const replicate = new Replicate({
-      auth: process.env.REPLICATE_API_TOKEN,
-    });
+    // Determine dimensions based on aspect ratio
+    let width = 1024;
+    let height = 1024;
 
-    // We use standard SDXL or Flux for great product shots
-    const output = await replicate.run(
-      "black-forest-labs/flux-schnell",
-      {
-        input: {
-          prompt: prompt,
-          aspect_ratio: aspectRatio,
-          output_format: "webp",
-          output_quality: 90,
-        }
-      }
-    );
+    if (aspectRatio === '16:9') {
+      width = 1024;
+      height = 576;
+    } else if (aspectRatio === '9:16') {
+      width = 576;
+      height = 1024;
+    }
 
-    // output from flux-schnell is an array of image URLs
-    const imageUrl = Array.isArray(output) ? output[0] : output;
+    // Pollinations AI endpoint (100% Free, No API Key Required)
+    const encodedPrompt = encodeURIComponent(prompt);
+    // Adding a random seed ensures we get a different image every time
+    const seed = Math.floor(Math.random() * 1000000);
+    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&nologo=true&seed=${seed}`;
 
+    // Return the URL directly to the frontend
     return NextResponse.json({ url: imageUrl });
   } catch (error: any) {
     console.error('Image AI Error:', error);
