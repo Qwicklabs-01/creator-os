@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     const encodedPrompt = encodeURIComponent(prompt);
     // Adding a random seed ensures we get a different image every time
     const seed = Math.floor(Math.random() * 1000000);
-    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&nologo=true&seed=${seed}`;
+    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}`;
 
     // Return the URL directly to the frontend
     return NextResponse.json({ url: imageUrl });
