@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../utils/supabase/client";
+import { TelegramLoginWidget } from "../components/auth/TelegramLoginWidget";
 
 const socialProviders = [
   {
@@ -112,6 +113,40 @@ export default function SignupPage() {
     } catch (e: any) {
       setError(e.message || `Failed to sign up with ${providerName}`);
       setSocialLoading(null);
+    }
+  };
+
+  const handleTelegramAuth = async (user: any) => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch('/api/auth/telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Telegram authentication failed');
+      }
+
+      // We have the magic link token, verify it
+      const supabase = createClient();
+      const { error } = await supabase.auth.verifyOtp({
+        token_hash: data.token,
+        type: 'magiclink'
+      });
+
+      if (error) {
+        throw error;
+      }
+      
+      router.push("/dashboard");
+    } catch (err: any) {
+      setError(err.message || "An error occurred during Telegram sign up.");
+      setLoading(false);
     }
   };
   const handleSubmit = async (e: React.FormEvent) => {
@@ -352,6 +387,20 @@ export default function SignupPage() {
                   )}
                 </button>
               ))}
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex-1 h-px bg-border" />
+              <span className="text-xs text-muted-dark">or continue with Telegram</span>
+              <div className="flex-1 h-px bg-border" />
+            </div>
+
+            <div className="mb-6 flex justify-center w-full">
+              <TelegramLoginWidget 
+                botName={process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME || "CreatorOSAuthBot"} 
+                onAuth={handleTelegramAuth} 
+              />
             </div>
 
             {/* Divider */}
