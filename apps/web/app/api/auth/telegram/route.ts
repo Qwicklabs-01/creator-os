@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { createAdminClient } from '../../../utils/supabase/admin';
+import { createAdminClient } from '../../../../utils/supabase/admin';
 
 export async function POST(request: Request) {
   try {
