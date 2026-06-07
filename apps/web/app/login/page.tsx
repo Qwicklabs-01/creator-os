@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../utils/supabase/client";
-import { TelegramLoginWidget } from "../components/auth/TelegramLoginWidget";
 
 const socialProviders = [
   {
@@ -93,40 +92,6 @@ export default function LoginPage() {
     } catch (e: any) {
       setError(e.message || `Failed to sign in with ${providerName}`);
       setSocialLoading(null);
-    }
-  };
-
-  const handleTelegramAuth = async (user: any) => {
-    setLoading(true);
-    setError("");
-    try {
-      const response = await fetch('/api/auth/telegram', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Telegram authentication failed');
-      }
-
-      // We have the magic link token, verify it
-      const supabase = createClient();
-      const { error } = await supabase.auth.verifyOtp({
-        token_hash: data.token,
-        type: 'magiclink'
-      });
-
-      if (error) {
-        throw error;
-      }
-      
-      router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.message || "An error occurred during Telegram sign in.");
-      setLoading(false);
     }
   };
 
@@ -356,26 +321,6 @@ export default function LoginPage() {
                   )}
                 </button>
               ))}
-            </div>
-
-            <div className="mb-6 relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-2xl blur transition-all group-hover:blur-md" />
-              <div className="relative p-[1px] rounded-2xl bg-gradient-to-r from-blue-500/50 to-purple-500/50">
-                <div className="bg-surface/90 backdrop-blur-sm rounded-2xl p-5 flex flex-col items-center gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-2 w-2 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                    </span>
-                    <span className="text-sm font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Recommended</span>
-                  </div>
-                  <span className="text-xs text-muted-dark text-center mb-1">Fast & secure instant login</span>
-                  <TelegramLoginWidget 
-                    botName={process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME || "CreatorOSAuthBot"} 
-                    onAuth={handleTelegramAuth} 
-                  />
-                </div>
-              </div>
             </div>
 
             {/* Divider */}
