@@ -143,11 +143,21 @@ export default function ImagesPage() {
 
           <div className="flex-1 flex items-center justify-center rounded-xl bg-background/50 border border-border/50 relative z-10 shadow-inner overflow-hidden">
             {error && (
-              <div className="p-6 bg-error/10 border border-error/20 rounded-lg text-error text-sm max-w-md text-center m-4">
+              <div className="p-6 bg-error/10 border border-error/20 rounded-lg text-error text-sm max-w-md text-center m-4 flex flex-col items-center">
                 <strong>Generation Error</strong>
-                <p className="mt-2">{error}</p>
+                <p className="mt-2 text-lg font-bold">{error}</p>
+                {error.includes("fetch failed") && typeof window !== "undefined" && window.location.hostname === "localhost" && (
+                  <div className="mt-4 p-4 bg-red-500/20 rounded-lg border border-red-500">
+                    <p className="font-bold text-red-500">🚨 INTERNET BLOCK DETECTED 🚨</p>
+                    <p className="mt-2">Your local Internet Service Provider (Jio/Airtel) is blocking the AI servers on localhost.</p>
+                    <p className="mt-2">To fix this, you must test on your live website!</p>
+                    <a href="https://creator-os-web-psi.vercel.app/dashboard/images" className="inline-block mt-4 px-4 py-2 bg-blue-500 text-white rounded font-bold hover:bg-blue-600">
+                      Click Here to Open Live Website
+                    </a>
+                  </div>
+                )}
                 <p className="text-xs opacity-80 mt-4">
-                  (Make sure you have added your REPLICATE_API_TOKEN in Vercel environment variables)
+                  (Make sure you have added your HUGGINGFACE_API_KEY in Vercel environment variables)
                 </p>
               </div>
             )}
